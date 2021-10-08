@@ -1,20 +1,21 @@
 var genBtn = document.querySelector("#generate");
 var characterSheet = document.querySelector("#new-character");
+var charName = document.querySelector("#character-name")
+
 
 
 var getDndName = function() {
-    var apiURL = "https://api.fungenerators.com/name/generate?category=shakespearean"
+    charName.textContent = ""
+    var apiURL = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=50&variation=any"
 
     fetch(apiURL)
     .then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
                 var characterNames = data.contents.names;
-                var namesEl = document.createElement("p")
-                namesEl.textContent = "Your character is " + characterNames[0]
-                characterSheet.appendChild(namesEl)
-                    
+                charName.textContent = "Your character is " + characterNames   
             });
+            // if nothing comes back, use local storage 
         } else {
             console.log("No names found");
         }
@@ -24,5 +25,5 @@ var getDndName = function() {
     });
 }
 
-genBtn.addEventListener("click", getDndName());
+genBtn.addEventListener("click", getDndName);
 
