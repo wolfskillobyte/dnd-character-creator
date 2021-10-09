@@ -61,7 +61,15 @@ var getClass = function() {
     .catch(function(error) {
         console.log("Unable to reach class data");
     });
+     
+    // Delays the function call to change "character-img" by 0.5 seconds so the API has time to retrieve and set a random class
+     setTimeout(function() { changeImg(); }, 500)
 }
+
+// Concatenizes the "src" with the randomly generated class
+function changeImg() {
+    document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-class").innerText + ".jpg"
+};
 
 /**
  * Randomly assigns a race. 
