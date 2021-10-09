@@ -13,7 +13,7 @@ var getDndName = function() {
         if (response.ok) {
             response.json().then(function (data) {
                 var characterNames = data.contents.names;
-                charName.textContent = "Your character is " + characterNames   
+                charName.textContent = "Your character is " + characterNames[0];   
             });
             // if nothing comes back, use local storage 
         } else {
@@ -43,5 +43,24 @@ var getClass = function() {
     });
 }
 
+/**
+ * Randomly assigns a race. 
+ */
+ var getRace = function() {
+    var apiUrl = "https://www.dnd5eapi.co/api/races";
+
+    fetch(apiUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response) {
+        $("#char-race").text((response.results[Math.floor(Math.random() * response.results.length)].name));
+    })
+    .catch(function(error) {
+        console.log("Unable to reach race data");
+    });
+}
+
 genBtn.addEventListener("click", getDndName);
 genBtn.addEventListener("click", getClass);
+genBtn.addEventListener("click", getRace);
