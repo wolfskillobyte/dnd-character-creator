@@ -3,26 +3,46 @@ var characterSheet = document.querySelector("#new-character");
 var charName = document.querySelector("#character-name");
 
 
-
+/**
+ * Assigns a random DnD name to the character. Will draw from the API if
+ * no names are present in localstorage, and place the drawn array into 
+ * localstorage. If there are names there, it'll just use those. This 
+ * should minimize database calls.
+ */
 var getDndName = function() {
+    var characterNames;
+    var apiURL = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
+    
     charName.textContent = "";
-    var apiURL = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any"
 
-    fetch(apiURL)
-    .then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                var characterNames = data.contents.names;
-                charName.textContent = "Your character is " + characterNames[0];   
-            });
-            // if nothing comes back, use local storage 
-        } else {
-            console.log("No names found");
-        }
-    })
-    .catch(function(error) {
-        console.log("Unable to connect to name generator");
-    });
+    if (!localStorage.getItem("names")) { //checks to see if the name array is already in localstorage
+        console.log("Names not found in localstorage; calling database");
+
+        fetch(apiURL)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    characterNames = data.contents.names;
+                    charName.textContent = "Your character is " 
+                    + characterNames[Math.floor(Math.random() * characterNames.length)];
+
+                    localStorage.setItem("names", JSON.stringify(characterNames));  
+                });
+            } else {
+                console.log("No names found");
+            }
+        })
+        .catch(function(error) {
+            console.log("Unable to connect to name generator");
+        });
+    }
+    else {
+        console.log("Names found in localstorage; drawing from there");
+
+        characterNames = JSON.parse(localStorage.getItem("names"));
+        charName.textContent = "Your character is " 
+        + characterNames[Math.floor(Math.random() * characterNames.length)];
+    }
 }
 
 /**
