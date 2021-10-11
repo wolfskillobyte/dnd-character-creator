@@ -1,7 +1,9 @@
 var genBtn = document.querySelector("#generate");
 var characterSheet = document.querySelector("#new-character");
 var charName = document.querySelector("#character-name");
-
+var savedChars = [];
+var getNameComplete = false; var getClassComplete = false;
+var getRaceComplete = false; var getAlignmentComplete = false;
 
 /**
  * Assigns a random DnD name to the character. Will draw from the API if
@@ -26,7 +28,7 @@ var getDndName = function() {
                     charName.textContent = "Your character is " 
                     + characterNames[Math.floor(Math.random() * characterNames.length)];
 
-                    localStorage.setItem("names", JSON.stringify(characterNames));  
+                    localStorage.setItem("names", JSON.stringify(characterNames));
                 });
             } else {
                 console.log("No names found");
@@ -34,6 +36,9 @@ var getDndName = function() {
         })
         .catch(function(error) {
             console.log("Unable to connect to name generator");
+        })
+        .finally(function() {
+            console.log("get dnd name complete");
         });
     }
     else {
@@ -42,6 +47,8 @@ var getDndName = function() {
         characterNames = JSON.parse(localStorage.getItem("names"));
         charName.textContent = "Your character is " 
         + characterNames[Math.floor(Math.random() * characterNames.length)];
+        console.log("getDndName complete");
+        getNameComplete = true;
     }
 }
 
@@ -61,6 +68,10 @@ var getClass = function() {
     })
     .catch(function(error) {
         console.log("Unable to reach class data");
+    })
+    .finally(function() {
+        console.log("getClass complete");
+        getClassComplete = true;
     });
 }
 
@@ -84,6 +95,10 @@ function changeImg() {
     })
     .catch(function(error) {
         console.log("Unable to reach race data");
+    })
+    .finally(function() {
+        console.log("getRace complete");
+        getRaceComplete = true;
     });
 }
 
@@ -102,10 +117,41 @@ function changeImg() {
     })
     .catch(function(error) {
         console.log("Unable to reach alignment data");
+    })
+    .finally(function() {
+        console.log("getAlignment complete");
+        getAlignmentComplete = true;
     });
 }
 
-genBtn.addEventListener("click", getDndName);
-genBtn.addEventListener("click", getClass);
-genBtn.addEventListener("click", getRace);
-genBtn.addEventListener("click", getAlignment);
+function saveChar() {
+    console.log("saveChar activated");
+}
+
+/**
+ * Will find a saved character in localstorage and display it
+ */
+function getSavedChar() {
+    console.log("getSavedChar activated");
+}
+
+genBtn.addEventListener("click", function() {
+    var saveCheck;
+
+    getDndName();
+    getClass();
+    getRace();
+    getAlignment();
+
+    saveCheck = setInterval(function() {
+        if (getNameComplete && getRaceComplete && getClassComplete && getAlignmentComplete) {
+            saveChar();
+            getNameComplete = false; getRaceComplete = false; getClassComplete = false; getAlignmentComplete = false;
+            clearInterval(saveCheck);
+        }
+        else {
+            console.log("page not ready yet");
+        }
+    }, 1000);
+});
+$("#get-saved-char").click(getSavedChar);
