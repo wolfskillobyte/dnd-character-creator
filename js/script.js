@@ -57,13 +57,11 @@ var getClass = function() {
     })
     .then(function(response) {
         $("#char-class").text((response.results[Math.floor(Math.random() * response.results.length)].name));
+        changeImg();
     })
     .catch(function(error) {
         console.log("Unable to reach class data");
     });
-     
-    // Delays the function call to change "character-img" by 0.5 seconds so the API has time to retrieve and set a random class
-     setTimeout(function() { changeImg(); }, 500)
 }
 
 // Concatenizes the "src" with the randomly generated class
@@ -89,6 +87,25 @@ function changeImg() {
     });
 }
 
+/**
+ * Randomly assigns an alignment. 
+ */
+ var getAlignment = function() {
+    var apiUrl = "https://www.dnd5eapi.co/api/alignments";
+
+    fetch(apiUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response) {
+        $("#char-align").text((response.results[Math.floor(Math.random() * response.results.length)].name));
+    })
+    .catch(function(error) {
+        console.log("Unable to reach alignment data");
+    });
+}
+
 genBtn.addEventListener("click", getDndName);
 genBtn.addEventListener("click", getClass);
 genBtn.addEventListener("click", getRace);
+genBtn.addEventListener("click", getAlignment);
