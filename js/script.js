@@ -126,6 +126,20 @@ function changeImg() {
 
 function saveChar() {
     console.log("saveChar activated");
+
+    if (savedChars.length <= 10) {
+        savedChars.push(
+            {
+                name: $("#character-name").text(),
+                class: $("#char-class").text(),
+                race: $("#char-race").text(),
+                alignment: $("#char-align").text()
+            }
+        );
+    }
+    else {
+        
+    }
 }
 
 /**
@@ -138,15 +152,20 @@ function getSavedChar() {
 genBtn.addEventListener("click", function() {
     var saveCheck;
 
+    genBtn.className = "hide"; //prevents user from clicking again until script is complete
+
     getDndName();
     getClass();
     getRace();
     getAlignment();
 
+    //checks every second to see if all the database calls are complete,
+    //and THEN calls saveChar(), as well as recreates the genButton
     saveCheck = setInterval(function() {
         if (getNameComplete && getRaceComplete && getClassComplete && getAlignmentComplete) {
             saveChar();
             getNameComplete = false; getRaceComplete = false; getClassComplete = false; getAlignmentComplete = false;
+            genBtn.className = "";
             clearInterval(saveCheck);
         }
         else {
