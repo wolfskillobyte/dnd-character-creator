@@ -1,7 +1,5 @@
 # D&D Character Generator
 
-## walker-texas-frasier
-
 ## Purpose
 Generate a character at random for your next D&D campaign! Using the D&D 5E API, this application is perfect for getting quick character details for beginners, NPC's, or one-shots. 
 
@@ -17,7 +15,7 @@ Here is a mock-up of how the page looks and functions.
 * HTML
 * CSS
 
-### This group project focused on JavaScript and Third-Party API's 
+## This group project focused on JavaScript and Third-Party API's 
 
 
 ## Website
