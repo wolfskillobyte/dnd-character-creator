@@ -10,15 +10,22 @@ var dropDownOptions = document.querySelector("#saved-chars").children;
  * being async. 
  */
 async function getNewCharacter() {
-    getDndName(); //still needs refactoring
+    var requests = [];
 
+    // getDndName(); //still needs refactoring
     //API calls for race, class, and alignment are put into an array
     //note that API calls at this point will still be in the form
     //of a Promise and will therefore not have the information yet
-    var requests = [];
     requests.push(getTrait("races"));
     requests.push(getTrait("classes"));
     requests.push(getTrait("alignments"));
+
+    if (localStorage.getItem("names")) {
+        setNameFromLocal();
+    }
+    else {
+        requests.push(getNameFromApi());
+    }
 
     //this Promise.all() function uses the await keyword to
     //take the promises and WAIT until they have all been
@@ -28,10 +35,45 @@ async function getNewCharacter() {
     setTrait("#char-race", resolves[0]);
     setTrait("#char-class", resolves[1]);
     setTrait("#char-align", resolves[2]);
+    if (!localStorage.getItem("names")) {
+        setNameFromApi(resolves[3]);
+    }
 
     //we can now safely call changeImg() 
     //as the class information will surely be there
     changeImg();
+}
+
+function setNameFromLocal() {
+    console.log("Names found in localstorage; drawing from there");
+
+    characterNames = JSON.parse(localStorage.getItem("names"));
+    charName.textContent = "Your character is " 
+        + characterNames[Math.floor(Math.random() * characterNames.length)];
+    console.log("getDndName complete");
+}
+
+function getNameFromApi() {
+    console.log("Names not found in localstorage; calling database");
+    var apiUrl = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
+    
+    return new Promise(function(resolve, reject) {
+        fetch(apiUrl)
+        .then(function(response) {
+            return resolve(response.json())
+        })
+        .catch(reject);
+    });
+}
+
+function setNameFromApi(resolves) {
+    var characterNames;
+
+    characterNames = resolves.contents.names;
+    charName.textContent = "Your character is " 
+    + characterNames[Math.floor(Math.random() * characterNames.length)];
+
+    localStorage.setItem("names", JSON.stringify(characterNames));
 }
 
 /**
@@ -99,7 +141,7 @@ function changeImg() {
             return resolve(response.json())
         })
         .catch(reject);
-    })
+    });
 }
 
 /**
