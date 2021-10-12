@@ -92,21 +92,22 @@ function setNameFromApi(resolves) {
 // Concatenizes the "src" with the randomly generated class
 function changeImg() {
     var characterClass = document.getElementById("char-class").innerText
+    var characterRace = document.getElementById("char-race").innerText.toLowerCase()
 
     if (characterClass == "Barbarian" || characterClass == "Fighter" || characterClass == "Rogue" || characterClass == "Paladin"){
-        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/sword.jpg"
+        document.getElementById("character-img").src = "assets/images/" + characterRace + "/sword.jpg"
     }
 
     else if (characterClass == "Sorcerer" || characterClass == "Druid" || characterClass == "Wizard" || characterClass == "Warlock" || characterClass == "Cleric" || characterClass == "Monk") {
-        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/staff.jpg"
+        document.getElementById("character-img").src = "assets/images/" + characterRace + "/staff.jpg"
     }
 
     else if (characterClass == "Ranger") {
-        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/ranger.jpg"
+        document.getElementById("character-img").src = "assets/images/" + characterRace + "/ranger.jpg"
     }
 
     else{
-        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/bard.jpg"
+        document.getElementById("character-img").src = "assets/images/" + characterRace + "/bard.jpg"
     }
 };
 
