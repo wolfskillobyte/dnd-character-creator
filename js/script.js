@@ -12,7 +12,6 @@ var dropDownOptions = document.querySelector("#saved-chars").children;
 async function getNewCharacter() {
     var requests = [];
 
-    // getDndName(); //still needs refactoring
     //API calls for race, class, and alignment are put into an array
     //note that API calls at this point will still be in the form
     //of a Promise and will therefore not have the information yet
@@ -20,6 +19,8 @@ async function getNewCharacter() {
     requests.push(getTrait("classes"));
     requests.push(getTrait("alignments"));
 
+    //checks to see if localstorage has names, calls either the API
+    //call function or the setNameFromLocal function
     if (localStorage.getItem("names")) {
         setNameFromLocal();
     }
@@ -44,15 +45,22 @@ async function getNewCharacter() {
     changeImg();
 }
 
+/**
+ * Sets the character's name from the localstorage
+ */
 function setNameFromLocal() {
     console.log("Names found in localstorage; drawing from there");
 
     characterNames = JSON.parse(localStorage.getItem("names"));
     charName.textContent = "Your character is " 
         + characterNames[Math.floor(Math.random() * characterNames.length)];
-    console.log("getDndName complete");
+    console.log("setNameFromLocal() complete");
 }
 
+/**
+ * Returns a promise that will eventually contain a long
+ * list of names
+ */
 function getNameFromApi() {
     console.log("Names not found in localstorage; calling database");
     var apiUrl = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
@@ -66,6 +74,11 @@ function getNameFromApi() {
     });
 }
 
+/**
+ * Receives a resolve promise containing an array of names,
+ * and then randomly picks one for the character, and THEN
+ * sends that list to localstorage to minimize database calls 
+ */
 function setNameFromApi(resolves) {
     var characterNames;
 
@@ -74,52 +87,6 @@ function setNameFromApi(resolves) {
     + characterNames[Math.floor(Math.random() * characterNames.length)];
 
     localStorage.setItem("names", JSON.stringify(characterNames));
-}
-
-/**
- * Assigns a random DnD name to the character. Will draw from the API if
- * no names are present in localstorage, and place the drawn array into 
- * localstorage. If there are names there, it'll just use those. This 
- * should minimize database calls.
- */
-var getDndName = function() {
-    var characterNames;
-    var apiURL = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
-    
-    charName.textContent = "";
-
-    if (!localStorage.getItem("names")) { //checks to see if the name array is already in localstorage
-        console.log("Names not found in localstorage; calling database");
-
-        fetch(apiURL)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    characterNames = data.contents.names;
-                    charName.textContent = "Your character is " 
-                    + characterNames[Math.floor(Math.random() * characterNames.length)];
-
-                    localStorage.setItem("names", JSON.stringify(characterNames));
-                });
-            } else {
-                console.log("No names found");
-            }
-        })
-        .catch(function(error) {
-            console.log("Unable to connect to name generator");
-        })
-        .finally(function() {
-            console.log("get dnd name complete");
-        });
-    }
-    else {
-        console.log("Names found in localstorage; drawing from there");
-
-        characterNames = JSON.parse(localStorage.getItem("names"));
-        charName.textContent = "Your character is " 
-        + characterNames[Math.floor(Math.random() * characterNames.length)];
-        console.log("getDndName complete");
-    }
 }
 
 // Concatenizes the "src" with the randomly generated class
