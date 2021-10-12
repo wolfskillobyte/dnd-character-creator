@@ -7,43 +7,94 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/css/uikit.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" /> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets\style.css"/>
 </head>
 <body>
-    <main>
+    
+    <header class="jumbotron ">
+        <h1>D&D 5E Character Generator</h1>
+        <p>Quickly generate character names and stats to kickstart your next campaign!</p>
+    </header>
 
-        <header>
 
-        </header>
-
-        <button id="generate">
-            Click to generate your character!
+<main class="uk-container">
+   
+    <div id="dice-roll" class="uk-container">
+        <button id="generate" class="uk-button uk-button-text action-buttons">
+            <br><i class="fas fa-dice-d20"></i>
         </button>
-
         <div id="error">
-            <p id="error-msg"></p><!-- alert if something goes wrong with API -->
+            <p id="error-msg"><!-- alert if something goes wrong with API --></p>
+        </div>
+    </div>
+
+    <div class="uk-width-1-1">
+        <h2> 
+            <span id="character-name"> </span>
+        </h2>
+    </div>
+
+    <div id="new-character">
+        <img id="character-img" class="uk-animation-fade" src="assets\images\mystery.png">
+    </div>
+
+    <div id="actions" class="uk-width-1-1">
+        <button id="save-character" class="uk-button uk-button-text action-buttons">
+            <i class="far fa-star"></i>
+        </button>
+        <button id="download-file" class="uk-button uk-button-text action-buttons">
+            <i class="fas fa-file-download"></i>
+        </button>
+        <button id="share-file" class="uk-button uk-button-text action-buttons">
+            <i class="far fa-share-square"></i>
+        </button>
+    </div>
+
+    <div id="sub-cards" class="uk-grid uk-child-width-1-3" uk-grid>
+        
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <p class="uk-text-muted">Class</p>
+                    <h4 id="char-class" ></h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <br><a class="uk-button-text uk-text-meta" href="https://www.dndwiki.io/classes">read more</a>
+            </div>
+        </div>
+        
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <p class="uk-text-muted">Race</p>
+                    <h4 id="char-race">
+                    <!--  -->
+                    </h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <br><a class="uk-button-text uk-text-meta" href="https://www.dndwiki.io/races">read more</a>
+            </div>
+        </div>
+        
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <p class="uk-text-muted">Alignment</p>
+                    <h4 id="char-align">
+                    <!--  -->
+                    </h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> 
+                    <br><a class="uk-button-text uk-text-meta" href="https://dnd5e.info/beyond-1st-level/alignment/">read more</a>
+            </div>
         </div>
 
-        <div id="new-character" class="card">
-            <h1 id="character-name"></h1>
+    </div>
+</main>   
 
-            <img id="character-img" src="assets\images\wewewewe.jpg">
+    <footer>
+        Creators: 
+    </footer>
 
-            <h4 id="char-class">Class:</h4>
-            <h4 id="char-race">Race:</h4>
-            <h4 id="char-align">Alignment:</h4>
-            
-        </div>
 
-        <footer>
-
-        </footer>
-
-    </main>
 
 
 </body>
