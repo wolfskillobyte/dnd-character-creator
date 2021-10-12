@@ -4,8 +4,21 @@ var charName = document.querySelector("#character-name");
 var charSaveLimit = 3; //this will determine how many characters can be saved at once
 var savedChars = [];
 var dropDownOptions = document.querySelector("#saved-chars").children;
-var getNameComplete = false; var getClassComplete = false;
-var getRaceComplete = false; var getAlignmentComplete = false;
+
+/**
+ * Exists only to call getDndName(), which will call getClass(),
+ * which will call getRace()... until all the gets are activated.
+ * By doing all these calls from inside the fetch statements, it
+ * is now guaranteed that each will occur in order, and by hiding the
+ * Save Character button at the beginning of this process, and revealing
+ * it at the end, we can guarantee no wonkiness from oddly timed
+ * saving. However, this is an extremely inelegant and volatile 
+ * solution that's difficult to work with. I want something better,
+ * but I don't know how. 
+ */
+function getNewCharacter() {
+    getDndName();
+}
 
 /**
  * Assigns a random DnD name to the character. Will draw from the API if
@@ -18,6 +31,7 @@ var getDndName = function() {
     var apiURL = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
     
     charName.textContent = "";
+    $("#save-char").attr("class", "hide");
 
     if (!localStorage.getItem("names")) { //checks to see if the name array is already in localstorage
         console.log("Names not found in localstorage; calling database");
@@ -40,8 +54,8 @@ var getDndName = function() {
             console.log("Unable to connect to name generator");
         })
         .finally(function() {
-            // console.log("get dnd name complete");
-            getNameComplete = true;
+            console.log("get dnd name complete");
+            getClass();
         });
     }
     else {
@@ -50,8 +64,8 @@ var getDndName = function() {
         characterNames = JSON.parse(localStorage.getItem("names"));
         charName.textContent = "Your character is " 
         + characterNames[Math.floor(Math.random() * characterNames.length)];
-        // console.log("getDndName complete");
-        getNameComplete = true;
+        console.log("getDndName complete");
+        getClass();
     }
 }
 
@@ -73,8 +87,8 @@ var getClass = function() {
         console.log("Unable to reach class data");
     })
     .finally(function() {
-        // console.log("getClass complete");
-        getClassComplete = true;
+        console.log("getClass complete");
+        getRace();
     });
 }
 
@@ -100,8 +114,8 @@ function changeImg() {
         console.log("Unable to reach race data");
     })
     .finally(function() {
-        // console.log("getRace complete");
-        getRaceComplete = true;
+        console.log("getRace complete");
+        getAlignment();
     });
 }
 
@@ -122,8 +136,9 @@ function changeImg() {
         console.log("Unable to reach alignment data");
     })
     .finally(function() {
-        // console.log("getAlignment complete");
-        getAlignmentComplete = true;
+        console.log("getAlignment complete");
+        changeImg();
+        $("#save-char").attr("class", "");
     });
 }
 
@@ -231,10 +246,11 @@ function updateDropDown() {
  */
 function getSavedChar() {
     console.log("getSavedChar activated");
+
     for (var i = 0; i < savedChars.length; i++) {
         if ($("#saved-chars option:selected").val() == savedChars[i].name) {
             var char = savedChars[i];
-            
+
             $("#character-name").text("Your character is " + char.name);
             $("#char-class").text(char.class);
             $("#char-race").text(char.race);
@@ -247,27 +263,9 @@ function getSavedChar() {
 setFromStorage(); //needs to run every time program begins
 
 genBtn.addEventListener("click", function() {
-    var saveCheck;
-
-    genBtn.className = "hide"; //prevents user from clicking again until script is complete
-
-    getDndName();
-    getClass();
-    getRace();
-    getAlignment();
-
-    //checks every second to see if all the database calls are complete,
-    //and THEN calls saveChar(), as well as recreates the genButton
-    saveCheck = setInterval(function() {
-        if (getNameComplete && getRaceComplete && getClassComplete && getAlignmentComplete) {
-            saveChar();
-            getNameComplete = false; getRaceComplete = false; getClassComplete = false; getAlignmentComplete = false;
-            genBtn.className = "";
-            clearInterval(saveCheck);
-        }
-        else {
-            console.log("page not ready yet");
-        }
-    }, 1000);
+    getNewCharacter();
 });
 $("#get-saved-char").click(getSavedChar);
+$("#save-char").click(function() {
+    saveChar();
+});
