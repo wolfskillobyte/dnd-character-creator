@@ -1,0 +1,108 @@
+:root {
+  --taupe: #938b96;
+  --blizz: #7ddee1;
+  --jet: #161413;
+  --seashell: #fef5ef;
+  --sage: #cad0b3;
+  --wine: #39191f;
+  --dark-wine: #1d0c10;
+}
+
+body {
+  background-color: #39191f;
+  color: var(--off);
+  /* font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  color: #666; */
+}
+
+h1 {
+  color: var(--seashell);
+}
+
+#dice-roll {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+i {
+    color: var(--taupe);
+}
+
+i:hover {
+    color: var(--blizz);
+    transition: all .3s ease-in-out;
+}
+
+.jumbotron {
+  padding: 50px 0;
+  text-align: center;
+  background-color: #1d0c10;
+  color: var(--taupe);
+  border-radius: .25;
+  border-bottom: 2px solid var(--jet);
+  align-content: center;
+}
+
+main {
+    text-align: center;
+    padding-bottom: 100px;
+    margin: 0;
+    color: #161413;
+  }
+
+#generate {
+    font-size: 50px;
+}
+
+.action-buttons:hover {
+    color: var(--blizz);
+    transition: all .5s ease-in-out;
+}
+
+#actions {
+    padding-top: 20px;
+}
+
+#actions button {
+    font-size: 26px;
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #fef5ef;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--blizz);
+}
+
+.uk-card {
+    text-align: left;
+    background-color: var(--seashell);
+    color: var(--jet);
+}
+
+.uk-card:hover {
+    background-color: #fef5ef;
+}
+
+#sub-cards {
+    padding: 50px 30px;
+}
+
+footer {
+    padding: 50px;
+    background-color: #110407;
+    text-align: center;
+    color: var(--taupe);
+}
+
+.hide {
+    display: none;
+}
