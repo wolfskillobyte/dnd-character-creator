@@ -82,7 +82,23 @@ var getDndName = function() {
 
 // Concatenizes the "src" with the randomly generated class
 function changeImg() {
-    document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-class").innerText + ".jpg"
+    var characterClass = document.getElementById("char-class").innerText
+
+    if (characterClass == "Barbarian" || characterClass == "Fighter" || characterClass == "Rogue" || characterClass == "Paladin"){
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/sword.jpg"
+    }
+
+    else if (characterClass == "Sorcerer" || characterClass == "Druid" || characterClass == "Wizard" || characterClass == "Warlock" || characterClass == "Cleric" || characterClass == "Monk") {
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/staff.jpg"
+    }
+
+    else if (characterClass == "Ranger") {
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/ranger.jpg"
+    }
+
+    else{
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/bard.jpg"
+    }
 };
 
 /**
