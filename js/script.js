@@ -2,7 +2,6 @@ var genBtn = document.querySelector("#generate");
 var characterSheet = document.querySelector("#new-character");
 var charName = document.querySelector("#character-name");
 
-
 /**
  * Assigns a random DnD name to the character. Will draw from the API if
  * no names are present in localstorage, and place the drawn array into 
@@ -57,16 +56,34 @@ var getClass = function() {
     })
     .then(function(response) {
         $("#char-class").text((response.results[Math.floor(Math.random() * response.results.length)].name));
-        changeImg();
     })
     .catch(function(error) {
         console.log("Unable to reach class data");
     });
+
+    setTimeout(function() { changeImg(); }, 100)
 }
 
-// Concatenizes the "src" with the randomly generated class
+// Concatenizes the "src" with the randomly generated class/race
 function changeImg() {
-    document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-class").innerText + ".jpg"
+    var characterClass = document.getElementById("char-class").innerText
+
+    if (characterClass == "Barbarian" || characterClass == "Fighter" || characterClass == "Rogue" || characterClass == "Paladin"){
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/sword.jpg"
+    }
+
+    else if (characterClass == "Sorcerer" || characterClass == "Druid" || characterClass == "Wizard" || characterClass == "Warlock" || characterClass == "Cleric" || characterClass == "Monk") {
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/staff.jpg"
+    }
+
+    else if (characterClass == "Ranger") {
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/ranger.jpg"
+    }
+
+    else{
+        document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-race").innerText + "/bard.jpg"
+    }
+    // document.getElementById("character-img").src = "assets/images/" + document.getElementById("char-class").innerText + ".jpg"
 };
 
 /**
