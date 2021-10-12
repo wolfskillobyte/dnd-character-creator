@@ -79,6 +79,7 @@ a {
 
 a:hover {
     text-decoration: none;
+    color: var(--blizz);
 }
 
 .uk-card {
