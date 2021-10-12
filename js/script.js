@@ -139,6 +139,7 @@ function setFromStorage() {
         for (var i = 0; i < savedChars.length; i++) {
             var optionEl = document.createElement("option");
             optionEl.textContent = savedChars[i].name;
+            optionEl.value = savedChars[i].name;
             $("#saved-chars").append(optionEl);
         }
     }
@@ -208,6 +209,7 @@ function updateDropDown() {
     if (dropDownOptions.length < savedChars.length) { 
         var optionEl = document.createElement("option");
         optionEl.textContent = savedChars[dropDownOptions.length].name;
+        optionEl.value = savedChars[dropDownOptions.length].name;
         $("#saved-chars").append(optionEl);
         dropDownOptions = document.querySelector("#saved-chars").children;
     }
@@ -216,9 +218,11 @@ function updateDropDown() {
     //rather than a new one being added
     else {
         for (var i = 0; i < dropDownOptions.length - 1; i++) {
+            dropDownOptions[i].value = dropDownOptions[i+1].value;
             dropDownOptions[i].textContent = dropDownOptions[i+1].textContent;
         }
         dropDownOptions[dropDownOptions.length - 1].textContent = savedChars[savedChars.length - 1].name;
+        dropDownOptions[dropDownOptions.length - 1].value = savedChars[savedChars.length - 1].name;
     }
 }
 
@@ -227,6 +231,17 @@ function updateDropDown() {
  */
 function getSavedChar() {
     console.log("getSavedChar activated");
+    for (var i = 0; i < savedChars.length; i++) {
+        if ($("#saved-chars option:selected").val() == savedChars[i].name) {
+            var char = savedChars[i];
+            
+            $("#character-name").text("Your character is " + char.name);
+            $("#char-class").text(char.class);
+            $("#char-race").text(char.race);
+            $("#char-align").text(char.alignment);
+            changeImg();
+        }
+    }
 }
 
 setFromStorage(); //needs to run every time program begins
