@@ -6,20 +6,31 @@ var savedChars = [];
 var dropDownOptions = document.querySelector("#saved-chars").children;
 
 /**
- * pls work god
+ * Creates a new character. Avoids pesky async problems by... just
+ * being async. 
  */
 async function getNewCharacter() {
-    getDndName();
+    getDndName(); //still needs refactoring
+
+    //API calls for race, class, and alignment are put into an array
+    //note that API calls at this point will still be in the form
+    //of a Promise and will therefore not have the information yet
     var requests = [];
     requests.push(getTrait("races"));
     requests.push(getTrait("classes"));
     requests.push(getTrait("alignments"));
 
-    var results = await Promise.all(requests).catch(console.error);
-    setTrait("#char-race", results[0]);
-    setTrait("#char-class", results[1]);
-    setTrait("#char-align", results[2]);
+    //this Promise.all() function uses the await keyword to
+    //take the promises and WAIT until they have all been
+    //resolved into proper, usable information, and then
+    //sticks them into a new array
+    var resolves = await Promise.all(requests).catch(console.error);
+    setTrait("#char-race", resolves[0]);
+    setTrait("#char-class", resolves[1]);
+    setTrait("#char-align", resolves[2]);
 
+    //we can now safely call changeImg() 
+    //as the class information will surely be there
     changeImg();
 }
 
@@ -75,10 +86,13 @@ function changeImg() {
 };
 
 /**
- * Here we go...
+ * Returns a PROMISE for a trait that must be passed in
+ * via argument. Note that a Promise is not yet usable
+ * information and will need to be Resolved before it
+ * can be used (see getNewCharacter() for an example)
  */
  var getTrait = function(trait) {
-    var apiUrl = "https://www.dnd5eapi.co/api/" + trait;
+    var apiUrl = "https://www.dnd5eapi.co/api/" + trait; //<- trait must be in plural form
     return new Promise(function(resolve, reject) {
         fetch(apiUrl)
         .then(function(response) {
@@ -88,9 +102,15 @@ function changeImg() {
     })
 }
 
-function setTrait(traitQueryString, promise) {
-    // var resolvedPromise = await promise;
-    var traitName = (promise.results[Math.floor(Math.random() * promise.results.length)].name);
+/**
+ * Receives an ID for the text object we want to change,
+ * and a resolved promise that tells us what to change the
+ * ID'd object into
+ * 
+ * traitQueryString example: "#char-race"
+ */
+function setTrait(traitQueryString, promiseResolved) {
+    var traitName = (promiseResolved.results[Math.floor(Math.random() * promiseResolved.results.length)].name);
     $(traitQueryString).text(traitName);
 }
 
