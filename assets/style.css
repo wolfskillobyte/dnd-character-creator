@@ -102,3 +102,6 @@ footer {
     color: var(--taupe);
 }
 
+.hide {
+    display: none;
+}

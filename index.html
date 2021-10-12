@@ -18,6 +18,10 @@
     <header class="jumbotron ">
         <h1>D&D 5E Character Generator</h1>
         <p>Quickly generate character names and stats to kickstart your next campaign!</p>
+        <label>Select saved character: </label>
+        <select id="saved-chars">
+        </select>
+        <button id="get-saved-char">Show Character</button>
     </header>
 
 
@@ -43,7 +47,7 @@
     </div>
 
     <div id="actions" class="uk-width-1-1">
-        <button id="save-character" class="uk-button uk-button-text action-buttons">
+        <button id="save-char" class="uk-button uk-button-text action-buttons">
             <i class="far fa-star"></i>
         </button>
         <button id="download-file" class="uk-button uk-button-text action-buttons">
@@ -101,3 +105,5 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="js\script.js"></script>
 </html>
+
+
