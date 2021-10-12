@@ -57,7 +57,6 @@ var getDndName = function() {
         })
         .finally(function() {
             console.log("get dnd name complete");
-            getClass();
         });
     }
     else {
