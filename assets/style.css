@@ -23,6 +23,10 @@ h1 {
   color: var(--seashell);
 }
 
+h2 {
+    color: var(--seashell);
+}
+
 #dice-roll {
     text-align: center;
     padding-bottom: 50px;
