@@ -172,37 +172,60 @@ function setFromStorage() {
 function saveChar() {
     console.log("saveChar activated");
 
-    if (savedChars) {
-        //adds a character, as the save limit has not been reached
-        if (savedChars.length < charSaveLimit) {
-            savedChars.push(
-                {
+    if ($("#char-class").text() != "" && savedChars) {
+        if (!saveDupeCheck()) {
+            //adds a character, as the save limit has not been reached
+            if (savedChars.length < charSaveLimit) {
+                savedChars.push(
+                    {
+                        name: $("#character-name").text().replace("Your character is ", ""),
+                        class: $("#char-class").text(),
+                        race: $("#char-race").text(),
+                        alignment: $("#char-align").text()
+                    }
+                );
+            }
+            //overwrites a character, as the save limit has been reached
+            else {
+                for (var i = 0; i < savedChars.length - 1; i++) {
+                    savedChars[i] = savedChars[i+1];
+                }
+                savedChars[savedChars.length - 1] = {
                     name: $("#character-name").text().replace("Your character is ", ""),
                     class: $("#char-class").text(),
                     race: $("#char-race").text(),
                     alignment: $("#char-align").text()
-                }
-            );
-        }
-        //overwrites a character, as the save limit has been reached
-        else {
-            for (var i = 0; i < savedChars.length - 1; i++) {
-                savedChars[i] = savedChars[i+1];
+                };
             }
-            savedChars[savedChars.length - 1] = {
-                name: $("#character-name").text().replace("Your character is ", ""),
-                class: $("#char-class").text(),
-                race: $("#char-race").text(),
-                alignment: $("#char-align").text()
-            };
+            
+            updateStorage();
+            updateDropDown();
+            alert("Your character has been saved!");
         }
-        
-        updateStorage();
-        updateDropDown();
+        else {
+            alert("This character is already saved!");
+        }
     }
-    else { //this bug is program breaking, so will send an alert rather than a console log
-        alert("savedChars array unreadable");
+    else { //will also occur if savedChars is somehow not instantiated to an array, which probably won't happen
+        alert("There's no character to save!");
     }
+}
+
+/**
+ * Returns TRUE if there IS a duplicate character
+ * in one of the saved character slots, and FALSE
+ * if there isn't
+ */
+function saveDupeCheck() {
+    for (var i = 0; i < savedChars.length; i++) {
+        if (savedChars[i].name == $("#character-name").text().replace("Your character is ", "")
+        && savedChars[i].class == $("#char-class").text()
+        && savedChars[i].race == $("#char-race").text()
+        && savedChars[i].alignment == $("#char-align").text()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -240,7 +263,7 @@ function updateDropDown() {
 }
 
 /**
- * Will find a saved character in localstorage and display it
+ * Will find a saved character in savedChars[] and display it
  */
 function getSavedChar() {
     console.log("getSavedChar activated");
