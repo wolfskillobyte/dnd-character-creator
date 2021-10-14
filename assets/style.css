@@ -110,3 +110,32 @@ footer {
 .hide {
     display: none;
 }
+
+#load-character {
+    color: var(--taupe);
+    padding-top: 20px;
+    
+}
+
+/* media queries */
+
+@media screen and (max-width: 980px) {
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+}
+
+/* change layout for mobile */
+@media screen and (max-width: 575px) {
+    #sub-cards {
+        display: block;
+    }
+
+    #sub-cards div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
