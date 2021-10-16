@@ -4,7 +4,9 @@ var charName = document.querySelector("#character-name");
 var charSaveLimit = 3; //this will determine how many characters can be saved at once
 var savedChars = [];
 var dropDownOptions = document.querySelector("#saved-chars").children;
+
 var charID = 0;
+var subCards = document.getElementById("sub-cards")
 
 /**
  * Creates a new character. Avoids pesky async problems by... just
@@ -198,11 +200,19 @@ function saveChar() {
             }
         }
         else {
-            alert("This character is already saved!");
+            UIkit.notification({
+                message: 'This character is already saved',
+                pos: 'top-center',
+                timeout: 5000
+            });
         }
     }
     else { //will also occur if savedChars is somehow not instantiated to an array, which probably won't happen
-        alert("There's no character to save!");
+        UIkit.notification({
+            message: 'There is no character to save!',
+            pos: 'top-center',
+            timeout: 5000
+        });
     }
 }
 
@@ -310,11 +320,23 @@ function getSavedChar() {
     }
 }
 
+// toggle dropdown menu to load character
+function toggleDropdown() {
+    var loadDropdown = document.getElementById("load-character")
+    if (loadDropdown.style.display !== "none") {
+        loadDropdown.style.display = "none";
+    } else {
+        loadDropdown.style.display = "block";
+    }
+}
+
 setFromStorage(); //needs to run every time program begins
 
 genBtn.addEventListener("click", function() {
     getNewCharacter();
+    $("#sub-cards").removeClass("hide")
 });
+
 $("#get-saved-char").click(getSavedChar);
 $("#save-char").click(function() {
     saveChar();

@@ -29,7 +29,6 @@ h2 {
 
 #dice-roll {
     text-align: center;
-    padding-bottom: 50px;
 }
 
 i {
@@ -46,7 +45,6 @@ i:hover {
   text-align: center;
   background-color: #1d0c10;
   color: var(--taupe);
-  border-radius: .25;
   border-bottom: 2px solid var(--jet);
   align-content: center;
 }
@@ -98,6 +96,7 @@ a:hover {
 
 #sub-cards {
     padding: 50px 30px;
+
 }
 
 #char-save-select {
@@ -120,4 +119,38 @@ footer {
 
 .hide {
     display: none;
+}
+
+#load-character {
+    display: none;
+    color: var(--taupe);
+    padding-top: 20px;
+}
+
+#character-container {
+    padding: 50px;
+}
+
+
+/* media queries */
+
+@media screen and (max-width: 980px) {
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+}
+
+/* change layout for mobile */
+@media screen and (max-width: 575px) {
+    #sub-cards {
+        display: block;
+    }
+
+    #sub-cards div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
