@@ -261,7 +261,11 @@ function overwriteCharacter(charName) {
     }
     updateStorage();
     updateDropDown();
-    alert("Character successfully overwritten!");
+    UIkit.notification({
+        message: 'Character successfully overwritten!',
+        pos: 'top-center',
+        timeout: 5000
+    });
 }
 
 /**
