@@ -4,6 +4,7 @@ var charName = document.querySelector("#character-name");
 var charSaveLimit = 3; //this will determine how many characters can be saved at once
 var savedChars = [];
 var dropDownOptions = document.querySelector("#saved-chars").children;
+var subCards = document.getElementById("sub-cards")
 
 /**
  * Creates a new character. Avoids pesky async problems by... just
@@ -172,37 +173,72 @@ function setFromStorage() {
 function saveChar() {
     console.log("saveChar activated");
 
-    if (savedChars) {
-        //adds a character, as the save limit has not been reached
-        if (savedChars.length < charSaveLimit) {
-            savedChars.push(
-                {
+    if ($("#char-class").text() != "" && savedChars) {
+        if (!saveDupeCheck()) {
+            //adds a character, as the save limit has not been reached
+            if (savedChars.length < charSaveLimit) {
+                savedChars.push(
+                    {
+                        name: $("#character-name").text().replace("Your character is ", ""),
+                        class: $("#char-class").text(),
+                        race: $("#char-race").text(),
+                        alignment: $("#char-align").text()
+                    }
+                );
+            }
+            //overwrites a character, as the save limit has been reached
+            else {
+                for (var i = 0; i < savedChars.length - 1; i++) {
+                    savedChars[i] = savedChars[i+1];
+                }
+                savedChars[savedChars.length - 1] = {
                     name: $("#character-name").text().replace("Your character is ", ""),
                     class: $("#char-class").text(),
                     race: $("#char-race").text(),
                     alignment: $("#char-align").text()
-                }
-            );
-        }
-        //overwrites a character, as the save limit has been reached
-        else {
-            for (var i = 0; i < savedChars.length - 1; i++) {
-                savedChars[i] = savedChars[i+1];
+                };
             }
-            savedChars[savedChars.length - 1] = {
-                name: $("#character-name").text().replace("Your character is ", ""),
-                class: $("#char-class").text(),
-                race: $("#char-race").text(),
-                alignment: $("#char-align").text()
-            };
+            
+            updateStorage();
+            updateDropDown();
+            UIkit.notification({
+                message: 'Character saved!',
+                pos: 'top-center',
+                timeout: 5000
+            });
         }
-        
-        updateStorage();
-        updateDropDown();
+        else {
+            UIkit.notification({
+                message: 'This character is already saved',
+                pos: 'top-center',
+                timeout: 5000
+            });
+        }
     }
-    else { //this bug is program breaking, so will send an alert rather than a console log
-        alert("savedChars array unreadable");
+    else { //will also occur if savedChars is somehow not instantiated to an array, which probably won't happen
+        UIkit.notification({
+            message: 'There is no character to save!',
+            pos: 'top-center',
+            timeout: 5000
+        });
     }
+}
+
+/**
+ * Returns TRUE if there IS a duplicate character
+ * in one of the saved character slots, and FALSE
+ * if there isn't
+ */
+function saveDupeCheck() {
+    for (var i = 0; i < savedChars.length; i++) {
+        if (savedChars[i].name == $("#character-name").text().replace("Your character is ", "")
+        && savedChars[i].class == $("#char-class").text()
+        && savedChars[i].race == $("#char-race").text()
+        && savedChars[i].alignment == $("#char-align").text()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -240,7 +276,7 @@ function updateDropDown() {
 }
 
 /**
- * Will find a saved character in localstorage and display it
+ * Will find a saved character in savedChars[] and display it
  */
 function getSavedChar() {
     console.log("getSavedChar activated");
@@ -258,11 +294,23 @@ function getSavedChar() {
     }
 }
 
+// toggle dropdown menu to load character
+function toggleDropdown() {
+    var loadDropdown = document.getElementById("load-character")
+    if (loadDropdown.style.display !== "none") {
+        loadDropdown.style.display = "none";
+    } else {
+        loadDropdown.style.display = "block";
+    }
+}
+
 setFromStorage(); //needs to run every time program begins
 
 genBtn.addEventListener("click", function() {
     getNewCharacter();
+    $("#sub-cards").removeClass("hide")
 });
+
 $("#get-saved-char").click(getSavedChar);
 $("#save-char").click(function() {
     saveChar();

@@ -16,15 +16,10 @@
 <body>
     
     <header class="jumbotron ">
-        <h1>D&D 5E Character Generator</h1>
-        <p>Quickly generate character names and stats to kickstart your next campaign!</p>
-        <label>Load saved character: </label>
-        <select id="saved-chars">
-        </select>
-        <button id="get-saved-char">Load</button>
+        <h1>D&D 5E Character Creator</h1>
+        <p>Roll the D20 to generate your new character!</p>
     </header>
-
-
+    
 <main class="uk-container">
    
     <div id="dice-roll" class="uk-container">
@@ -37,7 +32,9 @@
         </div>
     </div>
 
-    <div class="uk-width-1-1">
+<div id="character-container" class="container">
+    <!--class="uk-width-1-1"  -->
+    <div id="name-div">
         <h2> 
             <span id="character-name"> </span>
         </h2>
@@ -47,7 +44,8 @@
         <img id="character-img" class="uk-animation-fade" src="assets\images\mystery.png">
     </div>
 
-    <div id="actions" class="uk-width-1-1">
+<!-- Original class used for other layout -- class="uk-width-1-1" -->
+    <div id="actions" >
         <button id="save-char" title="Save this character" class="uk-button uk-button-text action-buttons">
             <i class="far fa-star"></i>
         </button>
@@ -57,16 +55,29 @@
         <button id="share-file" title="Share" class="uk-button uk-button-text action-buttons">
             <i class="far fa-share-square"></i>
         </button>
+        <button id="options" title="More options" class="uk-button uk-button-text action-buttons" onclick="toggleDropdown()">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
     </div>
 
-    <div id="sub-cards" class="uk-grid uk-child-width-1-3" uk-grid>
+    <div id="load-character">
+        <label>Load saved character: </label>
+        <br>
+        <select id="saved-chars">
+        </select>
+        <button id="get-saved-char">Load</button>
+    </div>
+</div>
+
+<!-- Original class used for other layout -- uk-child-width-1-3 -->
+    <div id="sub-cards" class="uk-grid uk-child-width-1-2 uk-grid-match hide" uk-grid>
         
         <div>
             <div class="uk-card uk-card-default uk-card-body">
                 <p class="uk-text-muted">Class</p>
                     <h4 id="char-class" ></h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <br><a class="uk-button-text uk-text-meta" href="https://www.dndwiki.io/classes">read more</a>
+                    <p id="class-stats"></p>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://www.dndbeyond.com/classes">read more</a>
             </div>
         </div>
         
@@ -76,8 +87,8 @@
                     <h4 id="char-race">
                     <!--  -->
                     </h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <br><a class="uk-button-text uk-text-meta" href="https://www.dndwiki.io/races">read more</a>
+                    <p id="race-stats"></p>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://www.dndbeyond.com/races">read more</a>
             </div>
         </div>
         
@@ -87,12 +98,25 @@
                     <h4 id="char-align">
                     <!--  -->
                     </h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> 
-                    <br><a class="uk-button-text uk-text-meta" href="https://dnd5e.info/beyond-1st-level/alignment/">read more</a>
+                    <p id="align-stats"></p>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://dnd5e.info/beyond-1st-level/alignment/">read more</a>
+            </div>
+        </div>
+
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <p class="uk-text-muted">Looking for more?</p>
+                    <h4 id="char-align">
+                    <!--  -->
+                    </h4>
+                    <p>See further reading for more character details. More features coming soon!</p> 
+                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://www.dndwiki.io/backgrounds">read more</a>
             </div>
         </div>
 
     </div>
+
+
 </main>   
 
     <footer>
@@ -102,11 +126,9 @@
         <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/wolfgarb" target="_blank">wolfgarb 🐺</a>
     </footer>
 
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit.min.js"></script>
 <script src="js\script.js"></script>
 </html>
 
