@@ -5,7 +5,7 @@ Generate a character at random for your next D&D campaign! Using the D&D 5E API,
 
 ## Preview
 Here is a mock-up of how the page looks and functions.
-<img src=""></img>
+<img src="assets\images\dnd-creator.gif"></img>
 
 ## Created With
 * D&D 5E API
@@ -16,7 +16,17 @@ Here is a mock-up of how the page looks and functions.
 * CSS
 
 ## This group project focused on JavaScript and Third-Party API's 
+This application will create a generate a name, class, race, and alignment for your character, as well as an image to give you an idea of what your character might look like! 
 
+Features:
+- Save your favorites and come back to them at any time
+- Download a PDF of your character
+- Share your character on social media
+
+Future development:
+- Generate bonds & flaws
+- Generate character backstory
+- Toggle / lock-in specific character stats
 
 ## Website
 https://wolfgarb.github.io/walker-texas-frasier

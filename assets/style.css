@@ -29,7 +29,6 @@ h2 {
 
 #dice-roll {
     text-align: center;
-    padding-bottom: 50px;
 }
 
 i {
@@ -97,6 +96,7 @@ a:hover {
 
 #sub-cards {
     padding: 50px 30px;
+
 }
 
 footer {
@@ -117,9 +117,9 @@ footer {
 }
 
 #character-container {
-    float: left;
     padding: 50px;
 }
+
 
 /* media queries */
 

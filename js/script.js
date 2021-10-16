@@ -4,6 +4,7 @@ var charName = document.querySelector("#character-name");
 var charSaveLimit = 3; //this will determine how many characters can be saved at once
 var savedChars = [];
 var dropDownOptions = document.querySelector("#saved-chars").children;
+var subCards = document.getElementById("sub-cards")
 
 /**
  * Creates a new character. Avoids pesky async problems by... just
@@ -307,7 +308,9 @@ setFromStorage(); //needs to run every time program begins
 
 genBtn.addEventListener("click", function() {
     getNewCharacter();
+    $("#sub-cards").removeClass("hide")
 });
+
 $("#get-saved-char").click(getSavedChar);
 $("#save-char").click(function() {
     saveChar();
