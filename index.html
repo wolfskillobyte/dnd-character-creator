@@ -19,17 +19,7 @@
         <h1>D&D 5E Character Generator</h1>
         <p>Quickly generate character names and stats to kickstart your next campaign!</p>
     </header>
-
     
-<!-- <nav class="uk-navbar uk-navbar-container uk-margin">
-    <div class="uk-navbar-left">
-        <a class="uk-navbar-toggle" href="#">
-            <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
-        </a>
-    </div>
-</nav> -->
-
-
 <main class="uk-container">
    
     <div id="dice-roll" class="uk-container">
@@ -42,7 +32,9 @@
         </div>
     </div>
 
-    <div class="uk-width-1-1">
+<div id="character-container" class="container">
+    <!--class="uk-width-1-1"  -->
+    <div>
         <h2> 
             <span id="character-name"> </span>
         </h2>
@@ -52,7 +44,8 @@
         <img id="character-img" class="uk-animation-fade" src="assets\images\mystery.png">
     </div>
 
-    <div id="actions" class="uk-width-1-1">
+<!-- Original class used for other layout -- class="uk-width-1-1" -->
+    <div id="actions" >
         <button id="save-char" title="Save this character" class="uk-button uk-button-text action-buttons">
             <i class="far fa-star"></i>
         </button>
@@ -62,16 +55,22 @@
         <button id="share-file" title="Share" class="uk-button uk-button-text action-buttons">
             <i class="far fa-share-square"></i>
         </button>
+        <button id="options" title="More options" class="uk-button uk-button-text action-buttons" onclick="toggleDropdown()">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
     </div>
 
     <div id="load-character">
         <label>Load saved character: </label>
+        <br>
         <select id="saved-chars">
         </select>
         <button id="get-saved-char">Load</button>
     </div>
+</div>
 
-    <div id="sub-cards" class="uk-grid uk-child-width-1-3" uk-grid>
+<!-- Original class used for other layout -- uk-child-width-1-3 -->
+    <div id="sub-cards" class="uk-grid uk-child-width-1-2" uk-grid>
         
         <div>
             <div class="uk-card uk-card-default uk-card-body">
@@ -103,8 +102,9 @@
                     <br><a class="uk-button-text uk-text-meta" href="https://dnd5e.info/beyond-1st-level/alignment/">read more</a>
             </div>
         </div>
-
     </div>
+
+
 </main>   
 
     <footer>

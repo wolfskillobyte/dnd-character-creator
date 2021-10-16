@@ -111,9 +111,14 @@ footer {
 }
 
 #load-character {
+    display: none;
     color: var(--taupe);
     padding-top: 20px;
-    
+}
+
+#character-container {
+    float: left;
+    padding: 50px;
 }
 
 /* media queries */

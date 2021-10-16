@@ -293,6 +293,16 @@ function getSavedChar() {
     }
 }
 
+// toggle dropdown menu to load character
+function toggleDropdown() {
+    var loadDropdown = document.getElementById("load-character")
+    if (loadDropdown.style.display !== "none") {
+        loadDropdown.style.display = "none";
+    } else {
+        loadDropdown.style.display = "block";
+    }
+}
+
 setFromStorage(); //needs to run every time program begins
 
 genBtn.addEventListener("click", function() {
