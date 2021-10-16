@@ -46,7 +46,6 @@ i:hover {
   text-align: center;
   background-color: #1d0c10;
   color: var(--taupe);
-  border-radius: .25;
   border-bottom: 2px solid var(--jet);
   align-content: center;
 }

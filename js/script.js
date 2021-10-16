@@ -200,14 +200,26 @@ function saveChar() {
             
             updateStorage();
             updateDropDown();
-            alert("Your character has been saved!");
+            UIkit.notification({
+                message: 'Character saved!',
+                pos: 'top-center',
+                timeout: 5000
+            });
         }
         else {
-            alert("This character is already saved!");
+            UIkit.notification({
+                message: 'This character is already saved',
+                pos: 'top-center',
+                timeout: 5000
+            });
         }
     }
     else { //will also occur if savedChars is somehow not instantiated to an array, which probably won't happen
-        alert("There's no character to save!");
+        UIkit.notification({
+            message: 'There is no character to save!',
+            pos: 'top-center',
+            timeout: 5000
+        });
     }
 }
 
