@@ -4,6 +4,8 @@ var charName = document.querySelector("#character-name");
 var charSaveLimit = 3; //this will determine how many characters can be saved at once
 var savedChars = [];
 var dropDownOptions = document.querySelector("#saved-chars").children;
+
+var charID = 0;
 var subCards = document.getElementById("sub-cards")
 
 /**
@@ -148,6 +150,7 @@ function setTrait(traitQueryString, promiseResolved) {
  */
 function setFromStorage() {
     savedChars = JSON.parse(localStorage.getItem("savedChars"));
+    charID = JSON.parse(localStorage.getItem("charID"));
 
     if (savedChars) {
         for (var i = 0; i < savedChars.length; i++) {
@@ -163,49 +166,38 @@ function setFromStorage() {
         //cause an infinite loop and those are bad
         savedChars = []; 
     }
+    if (!charID) {
+        charID = 0;
+    }
 }
 
 /**
  * Saves a character as an object in the savedChars[] array,
  * and updates localstorage with the new object and updates
- * dropDownOptions (the dropdown menu array) with the new name 
+ * the dropdown menu with the new name 
  */
 function saveChar() {
     console.log("saveChar activated");
-
+    var character = {
+        name: $("#character-name").text().replace("Your character is ", ""),
+        class: $("#char-class").text(),
+        race: $("#char-race").text(),
+        alignment: $("#char-align").text(),
+        id: charID
+    }
     if ($("#char-class").text() != "" && savedChars) {
         if (!saveDupeCheck()) {
             //adds a character, as the save limit has not been reached
             if (savedChars.length < charSaveLimit) {
-                savedChars.push(
-                    {
-                        name: $("#character-name").text().replace("Your character is ", ""),
-                        class: $("#char-class").text(),
-                        race: $("#char-race").text(),
-                        alignment: $("#char-align").text()
-                    }
-                );
+                savedChars.push(character);
+                updateStorage();
+                updateDropDown();
+                alert("Your character has been saved!");
             }
             //overwrites a character, as the save limit has been reached
             else {
-                for (var i = 0; i < savedChars.length - 1; i++) {
-                    savedChars[i] = savedChars[i+1];
-                }
-                savedChars[savedChars.length - 1] = {
-                    name: $("#character-name").text().replace("Your character is ", ""),
-                    class: $("#char-class").text(),
-                    race: $("#char-race").text(),
-                    alignment: $("#char-align").text()
-                };
+                displayOverwriteMenu();
             }
-            
-            updateStorage();
-            updateDropDown();
-            UIkit.notification({
-                message: 'Character saved!',
-                pos: 'top-center',
-                timeout: 5000
-            });
         }
         else {
             UIkit.notification({
@@ -222,6 +214,54 @@ function saveChar() {
             timeout: 5000
         });
     }
+}
+
+/**
+ * 
+ */
+function displayOverwriteMenu() {
+    $("#save-buttons").html("");
+    $("#char-save-select").attr("class", ""); //removes the .hide class to display the menu
+
+    for (var i = 0; i < savedChars.length; i++) {
+        var charBtn = document.createElement("button");
+        charBtn.textContent = savedChars[i].name;
+        charBtn.className = "char-save-select-button";
+        $("#save-buttons").append(charBtn);
+    }
+    var charBtn = document.createElement("button");
+        charBtn.textContent = "Cancel";
+        charBtn.className = "char-save-select-button";
+        $("#save-buttons").append(charBtn);
+}
+
+/**
+ * Can only be used when displayOverwriteMenu() has been activated,
+ * which will make buttons that activate this function appear onscreen.
+ * It overwrites a character by searching the savedChars[] array via name,
+ * and does nothing if the name is "Cancel," which will be the case if
+ * the user hits the Cancel button
+ */
+function overwriteCharacter(charName) {
+    $("#char-save-select").attr("class", "hide");
+    if (charName === "Cancel") {
+        return;
+    }
+    for (var i = 0; i < savedChars.length; i++) {
+        if (savedChars[i].name == charName) {
+            savedChars[i] = {
+                name: $("#character-name").text().replace("Your character is ", ""),
+                class: $("#char-class").text(),
+                race: $("#char-race").text(),
+                alignment: $("#char-align").text(),
+                id: charID
+            }
+            break;
+        }
+    }
+    updateStorage();
+    updateDropDown();
+    alert("Character successfully overwritten!");
 }
 
 /**
@@ -252,26 +292,12 @@ function updateStorage() {
  * Updates the dropdown menu containing the names of the saved characters.
  */
 function updateDropDown() {
-    //appends a new option to the dropdown menu if its length isn't as big as 
-    //the number of saved characters, because this means a new character
-    //has been added to the list of saved ones
-    if (dropDownOptions.length < savedChars.length) { 
+    $("#saved-chars").html("");
+    for (var i = 0; i < savedChars.length; i++) {
         var optionEl = document.createElement("option");
-        optionEl.textContent = savedChars[dropDownOptions.length].name;
-        optionEl.value = savedChars[dropDownOptions.length].name;
+        optionEl.textContent = savedChars[i].name;
+        optionEl.value = savedChars[i].name;
         $("#saved-chars").append(optionEl);
-        dropDownOptions = document.querySelector("#saved-chars").children;
-    }
-    //renames the options on the dropdown menu if they match saveChars's current
-    //length, as that means a saved character was overwritten with a new one,
-    //rather than a new one being added
-    else {
-        for (var i = 0; i < dropDownOptions.length - 1; i++) {
-            dropDownOptions[i].value = dropDownOptions[i+1].value;
-            dropDownOptions[i].textContent = dropDownOptions[i+1].textContent;
-        }
-        dropDownOptions[dropDownOptions.length - 1].textContent = savedChars[savedChars.length - 1].name;
-        dropDownOptions[dropDownOptions.length - 1].value = savedChars[savedChars.length - 1].name;
     }
 }
 
@@ -314,4 +340,7 @@ genBtn.addEventListener("click", function() {
 $("#get-saved-char").click(getSavedChar);
 $("#save-char").click(function() {
     saveChar();
+});
+$("#save-buttons").on("click", ".char-save-select-button", function() {
+    overwriteCharacter(this.textContent);
 });
