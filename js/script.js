@@ -101,8 +101,16 @@ function changeImg() {
         document.getElementById("character-img").src = "assets/images/" + characterRace + "/sword.jpg"
     }
 
-    else if (characterClass == "Sorcerer" || characterClass == "Druid" || characterClass == "Wizard" || characterClass == "Warlock" || characterClass == "Cleric" || characterClass == "Monk") {
+    else if (characterClass == "Sorcerer" || characterClass == "Druid" || characterClass == "Wizard" || characterClass == "Monk") {
         document.getElementById("character-img").src = "assets/images/" + characterRace + "/staff.jpg"
+    }
+
+    else if (characterClass == "Warlock") {
+        document.getElementById("character-img").src = "assets/images/" + characterRace + "/warlock.jpg"
+    }
+
+    else if (characterClass == "Cleric") {
+        document.getElementById("character-img").src = "assets/images/" + characterRace + "/cleric.jpg"
     }
 
     else if (characterClass == "Ranger") {
