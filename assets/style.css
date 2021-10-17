@@ -10,13 +10,7 @@
 
 body {
   background-color: #39191f;
-  color: var(--off);
-  /* font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-  font-size: 15px;
-  font-weight: normal;
-  line-height: 1.5;
-  -webkit-text-size-adjust: 100%;
-  color: #666; */
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
 }
 
 h1 {
@@ -43,7 +37,7 @@ i:hover {
 .jumbotron {
   padding: 50px 0;
   text-align: center;
-  background-color: #1d0c10;
+  background-color: var(--dark-wine);
   color: var(--taupe);
   border-bottom: 2px solid var(--jet);
   align-content: center;
@@ -60,9 +54,10 @@ main {
     font-size: 50px;
 }
 
-.action-buttons:hover {
+.action-buttons:hover, .char-save-select-button:hover {
     color: var(--blizz);
     transition: all .5s ease-in-out;
+    cursor: pointer;
 }
 
 #actions {
@@ -96,18 +91,35 @@ a:hover {
 
 #sub-cards {
     padding: 50px 30px;
-
+    color: var(--jet);
 }
 
 #char-save-select {
+    display: none;
     position: fixed;
+    z-index: 1;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 700px;
-    border: 3px solid #73AD21;
+    border: 2px solid var(--jet);
     text-align: center;
-    background-color: #7ddee1;
+    background-color: var(--dark-wine);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#h4-modal {
+    color: var(--seashell);
+    margin-top: 10px;
+}
+
+.char-save-select-button {
+    color: var(--taupe);
+    border: none;
+    padding: 10px 10px 0 10px;
+    font-family: "Segoe UI";
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 footer {
@@ -131,16 +143,11 @@ footer {
     padding: 50px;
 }
 
-
 /* media queries */
-
 @media screen and (max-width: 980px) {
-
 }
 
-
 @media screen and (max-width: 768px) {
-
 }
 
 /* change layout for mobile */

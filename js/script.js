@@ -8,6 +8,8 @@ var dropDownOptions = document.querySelector("#saved-chars").children;
 var charID = 0;
 var subCards = document.getElementById("sub-cards")
 
+var charModal = document.getElementById("char-save-select")
+
 /**
  * Creates a new character. Avoids pesky async problems by... just
  * being async. 
@@ -46,6 +48,9 @@ async function getNewCharacter() {
     //we can now safely call changeImg() 
     //as the class information will surely be there
     changeImg();
+    setClassDesc();
+    setRaceDesc();
+    setAlignDesc();
 }
 
 /**
@@ -96,39 +101,140 @@ function setNameFromApi(resolves) {
 function changeImg() {
     var characterClass = document.getElementById("char-class").innerText
     var characterRace = document.getElementById("char-race").innerText.toLowerCase()
+    var charImg = document.getElementById("character-img")
 
     if (characterClass == "Barbarian" || characterClass == "Fighter" || characterClass == "Paladin"){
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/sword.jpg"
+        charImg.src = "assets/images/" + characterRace + "/sword.jpg"
     }
-    
     else if (characterClass == "Sorcerer" || characterClass == "Druid" || characterClass == "Wizard") {
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/staff.jpg"
+        charImg.src = "assets/images/" + characterRace + "/staff.jpg"
     }
-
     else if (characterClass == "Monk") {
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/monk.jpg"
+        charImg.src = "assets/images/" + characterRace + "/monk.jpg"
     }
-
     else if (characterClass == "Rogue") {
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/rogue.jpg"
+        charImg.src = "assets/images/" + characterRace + "/rogue.jpg"
     }
-
     else if (characterClass == "Warlock") {
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/warlock.jpg"
+        charImg.src = "assets/images/" + characterRace + "/warlock.jpg"
     }
-
     else if (characterClass == "Cleric") {
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/cleric.jpg"
+        charImg.src = "assets/images/" + characterRace + "/cleric.jpg"
     }
-
     else if (characterClass == "Ranger") {
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/ranger.jpg"
+        charImg.src = "assets/images/" + characterRace + "/ranger.jpg"
     }
-
     else{
-        document.getElementById("character-img").src = "assets/images/" + characterRace + "/bard.jpg"
+        charImg.src = "assets/images/" + characterRace + "/bard.jpg"
     }
 };
+
+function setClassDesc() {
+    var charClass = document.getElementById("char-class").innerText.toLowerCase()
+    var classDesc = document.getElementById("class-desc")
+   
+    if (charClass === "barbarian") {
+        classDesc.textContent = "A fierce warrior of primitive background who can enter a battle rage"
+    }
+    else if (charClass === "bard") {
+        classDesc.textContent = "An inspiring magician whose power echoes the music of creation"
+    }
+    else if (charClass === "cleric") {
+        classDesc.textContent = "A priestly champion who wields divine magic in service of a higher power"
+    }
+    else if (charClass === "druid") {
+        classDesc.textContent = "A priest of the Old Faith, wielding the powers of nature and adopting animal forms"
+    }
+    else if (charClass === "fighter") {
+        classDesc.textContent = "A master of martial combat, skilled with a variety of weapons and armor"
+    }
+    else if (charClass === "monk") {
+        classDesc.textContent = "A master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection"
+    }
+    else if (charClass === "paladin") {
+        classDesc.textContent = "A holy warrior bound to a sacred oath"
+    }
+    else if (charClass === "ranger") {
+        classDesc.textContent = "A warrior who combats threats on the edges of civilization"
+    }
+    else if (charClass === "rogue") {
+        classDesc.textContent = "A scoundrel who uses stealth and trickery to overcome obstacles and enemies"
+    }
+    else if (charClass === "sorcerer") {
+        classDesc.textContent = "A spellcaster who draws on inherent magic from a gift or bloodline"
+    }
+    else if (charClass === "warlock") {
+        classDesc.textContent = "A wielder of magic that is derived from a bargain with an extraplanar entity"
+    }
+    else {
+        classDesc.textContent = "A scholarly magic-user capable of manipulating the structures of reality"
+    }
+}
+
+function setRaceDesc() {
+    var charRace = document.getElementById("char-race").innerText.toLowerCase()
+    var raceDesc = document.getElementById("race-desc")
+
+    if (charRace === "dragonborn") {
+        raceDesc.textContent = "Dragonborn look very much like dragons standing erect in humanoid form, though they lack wings or a tail"
+    }
+    else if (charRace === "dwarf") {
+        raceDesc.textContent = "Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal"
+    }
+    else if (charRace === "elf") {
+        raceDesc.textContent = "Elves are a magical people of otherwordly grace, living in the world but not entirely part of it"
+    }
+    else if (charRace === "gnome") {
+        raceDesc.textContent = "A gnome's energy and enthusiasm for living shines through every inch of his or her tiny body"
+    }
+    else if (charRace === "half-elf") {
+        raceDesc.textContent = "Half-elves combine what some say are the best qualities of their elf and human parents"
+    }
+    else if (charRace === "halfling") {
+        raceDesc.textContent = "The diminutive halfings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense"
+    }
+    else if (charRace === "half-orc") {
+        raceDesc.textContent = "Half-orcs' grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering builds make their orcish heritage plain for all to see"
+    }
+    else if (charRace === "human") {
+        raceDesc.textContent = "Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds"
+    }
+    else {
+        raceDesc.textContent = "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling"
+    }
+}
+
+
+
+function setAlignDesc() {
+    var charAlign = document.getElementById("char-align").innerText.toLowerCase()
+    var alignDesc = document.getElementById("align-desc")
+
+    if (charAlign === "lawful good") {
+        alignDesc.textContent = "Can be counted on to do the right thing as expected by society"
+    }
+    else if (charAlign === "neutral good") {
+        alignDesc.textContent = "Do the best they can to help others according to their needs"
+    }
+    else if (charAlign === "chaotic good") {
+        alignDesc.textContent = "Act as their conscience directs, with little regard for what others expect"
+    }
+    else if (charAlign === "lawful nuetral") {
+        alignDesc.textContent = "Act in accordance with law, tradition, or personal codes"
+    }
+    else if (charAlign === "nuetral") {
+        alignDesc.textContent = "Prefer to steer clear of moral questions and don’t take sides, doing what seems best at the time"
+    }
+    else if (charAlign === "chaotic nuetral") {
+        alignDesc.textContent = "Follow their whims, holding their personal freedom above all else"
+    }
+    else if (charAlign === "lawful evil") {
+        alignDesc.textContent = "Methodically take what they want, within the limits of a code of tradition, loyalty, or order"
+    }
+    else {
+        alignDesc.textContent = "Act with arbitrary violence, spurred by their greed, hatred, or bloodlust"
+    }
+}
 
 /**
  * Returns a PROMISE for a trait that must be passed in
@@ -232,22 +338,19 @@ function saveChar() {
     }
 }
 
-/**
- * 
- */
 function displayOverwriteMenu() {
     $("#save-buttons").html("");
-    $("#char-save-select").attr("class", ""); //removes the .hide class to display the menu
+    charModal.style.display = "block"
 
     for (var i = 0; i < savedChars.length; i++) {
         var charBtn = document.createElement("button");
         charBtn.textContent = savedChars[i].name;
-        charBtn.className = "char-save-select-button";
+        charBtn.classList = "char-save-select-button uk-button-text";
         $("#save-buttons").append(charBtn);
     }
     var charBtn = document.createElement("button");
         charBtn.textContent = "Cancel";
-        charBtn.className = "char-save-select-button";
+        charBtn.classList = "char-save-select-button uk-button-text";
         $("#save-buttons").append(charBtn);
 }
 
@@ -259,7 +362,7 @@ function displayOverwriteMenu() {
  * the user hits the Cancel button
  */
 function overwriteCharacter(charName) {
-    $("#char-save-select").attr("class", "hide");
+    charModal.style.display = "none"
     if (charName === "Cancel") {
         return;
     }
@@ -361,6 +464,7 @@ $("#get-saved-char").click(getSavedChar);
 $("#save-char").click(function() {
     saveChar();
 });
+
 $("#save-buttons").on("click", ".char-save-select-button", function() {
     overwriteCharacter(this.textContent);
 });
