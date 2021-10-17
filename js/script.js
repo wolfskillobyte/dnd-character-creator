@@ -225,13 +225,13 @@ function setAlignDesc() {
     else if (charAlign === "chaotic good") {
         alignDesc.textContent = "Act as their conscience directs, with little regard for what others expect"
     }
-    else if (charAlign === "lawful nuetral") {
+    else if (charAlign === "lawful neutral") {
         alignDesc.textContent = "Act in accordance with law, tradition, or personal codes"
     }
-    else if (charAlign === "nuetral") {
+    else if (charAlign === "neutral") {
         alignDesc.textContent = "Prefer to steer clear of moral questions and don’t take sides, doing what seems best at the time"
     }
-    else if (charAlign === "chaotic nuetral") {
+    else if (charAlign === "chaotic neutral") {
         alignDesc.textContent = "Follow their whims, holding their personal freedom above all else"
     }
     else if (charAlign === "lawful evil") {
