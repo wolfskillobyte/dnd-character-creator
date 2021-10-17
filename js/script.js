@@ -237,6 +237,9 @@ function setAlignDesc() {
     else if (charAlign === "lawful evil") {
         alignDesc.textContent = "Methodically take what they want, within the limits of a code of tradition, loyalty, or order"
     }
+    else if (charAlign === "neutral evil") {
+        alignDesc.textContent = "Those who do whatever they can get away with, without compassion or qualms."
+    }
     else {
         alignDesc.textContent = "Act with arbitrary violence, spurred by their greed, hatred, or bloodlust"
     }
