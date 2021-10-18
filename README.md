@@ -29,7 +29,7 @@ Future development:
 - Toggle / lock-in specific character stats
 
 ## Website
-https://wolfgarb.github.io/walker-texas-frasier
+https://wolfgarb.github.io/dnd-character-creator/
 
 ## Contribution
 Made by:
