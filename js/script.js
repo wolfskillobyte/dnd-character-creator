@@ -465,7 +465,7 @@ function toggleDropdown() {
 setFromStorage(); //needs to run every time program begins
 
 genBtn.addEventListener("click", function () {
-        // getNewCharacter(10);
+        // getNewCharacter();
         // $("#sub-cards").removeClass("hide")
     var i = 0;
     var limit = 6
