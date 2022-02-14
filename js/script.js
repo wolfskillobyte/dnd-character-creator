@@ -57,12 +57,12 @@ async function getNewCharacter() {
  * Sets the character's name from the localstorage
  */
 function setNameFromLocal() {
-    console.log("Names found in localstorage; drawing from there");
+    // console.log("Names found in localstorage; drawing from there");
 
     characterNames = JSON.parse(localStorage.getItem("names"));
-    charName.textContent = "Your character is " 
+    charName.textContent = "Your character is "
         + characterNames[Math.floor(Math.random() * characterNames.length)];
-    console.log("setNameFromLocal() complete");
+    // console.log("setNameFromLocal() complete");
 }
 
 /**
@@ -72,13 +72,13 @@ function setNameFromLocal() {
 function getNameFromApi() {
     console.log("Names not found in localstorage; calling database");
     var apiUrl = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
-    
-    return new Promise(function(resolve, reject) {
+
+    return new Promise(function (resolve, reject) {
         fetch(apiUrl)
-        .then(function(response) {
-            return resolve(response.json())
-        })
-        .catch(reject);
+            .then(function (response) {
+                return resolve(response.json())
+            })
+            .catch(reject);
     });
 }
 
@@ -91,8 +91,8 @@ function setNameFromApi(resolves) {
     var characterNames;
 
     characterNames = resolves.contents.names;
-    charName.textContent = "Your character is " 
-    + characterNames[Math.floor(Math.random() * characterNames.length)];
+    charName.textContent = "Your character is "
+        + characterNames[Math.floor(Math.random() * characterNames.length)];
 
     localStorage.setItem("names", JSON.stringify(characterNames));
 }
@@ -130,7 +130,7 @@ function changeImg() {
     else if (characterClass == "Ranger") {
         charImg.src = "assets/images/" + characterRace + "/ranger.jpg"
     }
-    else{
+    else {
         charImg.src = "assets/images/" + characterRace + "/bard.jpg"
     }
 };
@@ -138,7 +138,7 @@ function changeImg() {
 function setClassDesc() {
     var charClass = document.getElementById("char-class").innerText.toLowerCase()
     var classDesc = document.getElementById("class-desc")
-   
+
     if (charClass === "barbarian") {
         classDesc.textContent = "A fierce warrior of primitive background who can enter a battle rage"
     }
@@ -251,14 +251,14 @@ function setAlignDesc() {
  * information and will need to be Resolved before it
  * can be used (see getNewCharacter() for an example)
  */
- var getTrait = function(trait) {
+var getTrait = function (trait) {
     var apiUrl = "https://www.dnd5eapi.co/api/" + trait; //<- trait must be in plural form
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         fetch(apiUrl)
-        .then(function(response) {
-            return resolve(response.json())
-        })
-        .catch(reject);
+            .then(function (response) {
+                return resolve(response.json())
+            })
+            .catch(reject);
     });
 }
 
@@ -295,7 +295,7 @@ function setFromStorage() {
         //this done to make sure savedChars is read as
         //an array later, as failing to do so may
         //cause an infinite loop and those are bad
-        savedChars = []; 
+        savedChars = [];
     }
     if (!charID) {
         charID = 0;
@@ -358,9 +358,9 @@ function displayOverwriteMenu() {
         $("#save-buttons").append(charBtn);
     }
     var charBtn = document.createElement("button");
-        charBtn.textContent = "Cancel";
-        charBtn.classList = "char-save-select-button uk-button-text";
-        $("#save-buttons").append(charBtn);
+    charBtn.textContent = "Cancel";
+    charBtn.classList = "char-save-select-button uk-button-text";
+    $("#save-buttons").append(charBtn);
 }
 
 /**
@@ -404,9 +404,9 @@ function overwriteCharacter(charName) {
 function saveDupeCheck() {
     for (var i = 0; i < savedChars.length; i++) {
         if (savedChars[i].name == $("#character-name").text().replace("Your character is ", "")
-        && savedChars[i].class == $("#char-class").text()
-        && savedChars[i].race == $("#char-race").text()
-        && savedChars[i].alignment == $("#char-align").text()) {
+            && savedChars[i].class == $("#char-class").text()
+            && savedChars[i].race == $("#char-race").text()
+            && savedChars[i].alignment == $("#char-align").text()) {
             return true;
         }
     }
@@ -464,16 +464,24 @@ function toggleDropdown() {
 
 setFromStorage(); //needs to run every time program begins
 
-genBtn.addEventListener("click", function() {
-    getNewCharacter();
-    $("#sub-cards").removeClass("hide")
+genBtn.addEventListener("click", function () {
+        // getNewCharacter(10);
+        // $("#sub-cards").removeClass("hide")
+    var i = 0;
+    var limit = 6
+    var ref = setInterval(() => {
+        console.log(i);
+        getNewCharacter(); i++;
+        if (i == limit) clearInterval(ref);
+    }, 50);
+    $("#sub-cards").removeClass("hide");
 });
 
 $("#get-saved-char").click(getSavedChar);
-$("#save-char").click(function() {
+$("#save-char").click(function () {
     saveChar();
 });
 
-$("#save-buttons").on("click", ".char-save-select-button", function() {
+$("#save-buttons").on("click", ".char-save-select-button", function () {
     overwriteCharacter(this.textContent);
 });
