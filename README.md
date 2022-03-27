@@ -36,4 +36,4 @@ Made by:
 
 - <a href="https://github.com/RobertAReedy" target="_blank">Robert Reedy</a>
 - <a href="https://github.com/ZBreezie" target="_blank">Zachary McCollum</a>
-- <a href="https://github.com/wolfgarb" target="_blank">wolfgarb 🐺</a>
+- <a href="https://github.com/wolfskillobyte" target="_blank">wolfgarb 🐺</a>
