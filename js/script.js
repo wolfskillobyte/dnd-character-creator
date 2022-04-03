@@ -41,9 +41,9 @@ async function getNewCharacter() {
     setTrait("#char-race", resolves[0]);
     setTrait("#char-class", resolves[1]);
     setTrait("#char-align", resolves[2]);
-    if (!localStorage.getItem("names")) {
-        setNameFromApi(resolves[3]);
-    }
+    // if (!localStorage.getItem("names")) {
+    //     setNameFromApi(resolves[3]);
+    // }
 
     //we can now safely call changeImg() 
     //as the class information will surely be there
@@ -71,7 +71,7 @@ function setNameFromLocal() {
  */
 function getNameFromApi() {
     console.log("Names not found in localstorage; calling database");
-    var apiUrl = "https://api.fungenerators.com/name/generate?category=shakespearean&limit=500&variation=any";
+    var apiUrl = "http://hp-api.herokuapp.com/api/characters";
     
     return new Promise(function(resolve, reject) {
         fetch(apiUrl)
