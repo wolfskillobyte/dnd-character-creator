@@ -1,7 +1,7 @@
 var genBtn = document.querySelector('#generate');
 var characterSheet = document.querySelector('#new-character');
 var charName = document.querySelector('#character-name');
-var charSaveLimit = 3; //this will determine how many characters can be saved at once
+var charSaveLimit = 5; //this will determine how many characters can be saved at once
 var savedChars = [];
 var dropDownOptions = document.querySelector('#saved-chars').children;
 
@@ -330,10 +330,13 @@ function saveChar() {
         savedChars.push(character);
         updateStorage();
         updateDropDown();
-        alert('Your character has been saved!');
-      }
-      //overwrites a character, as the save limit has been reached
-      else {
+        UIkit.notification({
+          message: 'Character has been saved to archive!',
+          pos: 'top-center',
+          timeout: 5000
+        });
+        //overwrites a character, as the save limit has been reached
+      } else {
         displayOverwriteMenu();
       }
     } else {

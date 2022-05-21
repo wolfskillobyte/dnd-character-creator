@@ -1,141 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's roll</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/css/uikit.min.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous" />
+    <!-- FA v581 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" /> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets\style.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets\style.css" />
 </head>
+
 <body>
-    
+
     <header class="jumbotron ">
         <h1>D&D 5E Character Creator</h1>
         <p>Roll the D20 to generate your new character!</p>
     </header>
-    
-<main class="uk-container">
-   
-    <div id="dice-roll" class="uk-container">
-        
-        <button id="generate" title="Let's roll" class="uk-button uk-button-text action-buttons">
-            <br><i class="fas fa-dice-d20"></i>
-        </button>
-        <div id="error">
-            <p id="error-msg"><!-- alert if something goes wrong with API --></p>
-        </div>
-    </div>
 
-<div id="character-container" class="container">
-    <!--class="uk-width-1-1"  -->
-    <div id="name-div">
-        <h2> 
-            <span id="character-name"> </span>
-        </h2>
-    </div>
+    <main class="uk-container">
 
-    <div id="new-character">
-        <img id="character-img" class="uk-animation-fade" src="assets\images\mystery.png">
-    </div>
+        <div id="dice-roll" class="uk-container">
 
-<!-- Original class used for other layout -- class="uk-width-1-1" -->
-    <div id="actions" >
-        <button id="save-char" title="Save this character" class="uk-button uk-button-text action-buttons">
-            <i class="far fa-star"></i>
-        </button>
-        <button id="download-file" title="Download file" class="uk-button uk-button-text action-buttons">
-            <i class="fas fa-file-download"></i>
-        </button>
-        <button id="share-file" title="Share" class="uk-button uk-button-text action-buttons">
-            <i class="far fa-share-square"></i>
-        </button>
-        <button id="options" title="More options" class="uk-button uk-button-text action-buttons" onclick="toggleDropdown()">
-            <i class="fas fa-ellipsis-v"></i>
-        </button>
-    </div>
-
-    <div id="load-character">
-        <label>Load saved character: </label>
-        <br>
-        <select id="saved-chars">
-        </select>
-        <button id="get-saved-char">Load</button>
-    </div>
-</div>
-
-<!-- Original class used for other layout -- uk-child-width-1-3 -->
-    <div id="sub-cards" class="uk-grid uk-child-width-1-2 uk-grid-match hide" uk-grid>
-        
-        <div>
-            <div class="uk-card uk-card-default uk-card-body">
-                <p class="uk-text-muted">Class</p>
-                    <h4 id="char-class" ></h4>
-                    <p id="class-desc"></p>
-                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://www.dndbeyond.com/classes">read more</a>
+            <button id="generate" title="Let's roll" class="uk-button uk-button-text action-buttons">
+                <br><i class="fas fa-dice-d20"></i>
+            </button>
+            <div id="error">
+                <p id="error-msg">
+                    <!-- alert if something goes wrong with API -->
+                </p>
             </div>
         </div>
-        
-        <div>
-            <div class="uk-card uk-card-default uk-card-body">
-                <p class="uk-text-muted">Race</p>
+
+        <div id="character-container" class="container">
+            <!--class="uk-width-1-1"  -->
+            <div id="name-div">
+                <h2>
+                    <span id="character-name"> </span>
+                </h2>
+            </div>
+
+            <div id="new-character">
+                <img id="character-img" class="uk-animation-fade" src="assets\images\mystery.png">
+            </div>
+
+            <!-- Original class used for other layout -- class="uk-width-1-1" -->
+            <div id="actions">
+                <button id="save-char" title="Save this character" class="uk-button uk-button-text action-buttons">
+                    <i class="far fa-star"></i>
+                </button>
+                <!-- <button id="download-file" title="Download file" class="uk-button uk-button-text action-buttons">
+            <i class="fas fa-file-download"></i>
+        </button> -->
+                <button id="share-file" title="Share" class="uk-button uk-button-text action-buttons">
+                    <i class="far fa-share-square"></i>
+                </button>
+                <button id="options" title="Character archive" class="uk-button uk-button-text action-buttons">
+                    <i onclick="toggleDropdown()" class="fa-regular fa-folder-open"></i>
+                </button>
+            </div>
+
+            <div id="load-character">
+                <label>Load saved character: </label>
+                <br>
+                <select id="saved-chars">
+                </select>
+                <button id="get-saved-char">Load</button>
+            </div>
+        </div>
+
+        <!-- Original class used for other layout -- uk-child-width-1-3 -->
+        <div id="sub-cards" class="uk-grid uk-child-width-1-2 uk-grid-match hide" uk-grid>
+
+            <div>
+                <div class="uk-card uk-card-default uk-card-body">
+                    <p class="uk-text-muted">Class</p>
+                    <h4 id="char-class"></h4>
+                    <p id="class-desc"></p>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank"
+                        href="https://www.dndbeyond.com/classes">read more</a>
+                </div>
+            </div>
+
+            <div>
+                <div class="uk-card uk-card-default uk-card-body">
+                    <p class="uk-text-muted">Race</p>
                     <h4 id="char-race">
-                    <!--  -->
+                        <!--  -->
                     </h4>
                     <p id="race-desc"></p>
-                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://www.dndbeyond.com/races">read more</a>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank"
+                        href="https://www.dndbeyond.com/races">read more</a>
+                </div>
             </div>
-        </div>
-        
-        <div>
-            <div class="uk-card uk-card-default uk-card-body">
-                <p class="uk-text-muted">Alignment</p>
+
+            <div>
+                <div class="uk-card uk-card-default uk-card-body">
+                    <p class="uk-text-muted">Alignment</p>
                     <h4 id="char-align">
-                    <!--  -->
+                        <!--  -->
                     </h4>
                     <p id="align-desc"></p>
-                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://dnd5e.info/beyond-1st-level/alignment/">read more</a>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank"
+                        href="https://dnd5e.info/beyond-1st-level/alignment/">read more</a>
+                </div>
             </div>
-        </div>
 
-        <div>
-            <div class="uk-card uk-card-default uk-card-body">
-                <p class="uk-text-muted">Looking for more?</p>
+            <div>
+                <div class="uk-card uk-card-default uk-card-body">
+                    <p class="uk-text-muted">Looking for more?</p>
                     <h4 id="char-align">
-                    <!--  -->
+                        <!--  -->
                     </h4>
-                    <p>See further reading for more character details. More features coming soon!</p> 
-                    <br><a class="uk-button-text uk-text-meta" target="_blank" href="https://www.dndwiki.io/backgrounds">read more</a>
+                    <p>See further reading for more character details. More features coming soon!</p>
+                    <br><a class="uk-button-text uk-text-meta" target="_blank"
+                        href="https://www.dndwiki.io/backgrounds">read more</a>
+                </div>
             </div>
+
         </div>
 
-    </div>
+    </main>
 
-</main>   
-
-<div id="char-save-select">
-    <h4 id="h4-modal">Save limit reached! Which character would you like to delete?</h4>
-    <div id="save-buttons">
-        <button>Error; inner HTML not deleted</button>
+    <div id="char-save-select">
+        <h4 id="h4-modal">Save limit reached! Which character would you like to delete?</h4>
+        <div id="save-buttons">
+            <button>Error; inner HTML not deleted</button>
+        </div>
     </div>
-</div>
 
     <footer>
         Creators <br>
-        <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/RobertAReedy" target="_blank">Robert Reedy</a> //
-        <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/ZBreezie" target="_blank">Zachary McCollum</a> // 
-        <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/wolfskillobyte" target="_blank">wolfskillobyte 🐺</a>
+        <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/RobertAReedy"
+            target="_blank">Robert Reedy</a> //
+        <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/ZBreezie" target="_blank">Zachary
+            McCollum</a> //
+        <a class="uk-button-text uk-text-meta action-buttons" href="https://github.com/wolfskillobyte"
+            target="_blank">wolfskillobyte 🐺</a>
     </footer>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit.min.js"></script>
 <script src="js\script.js"></script>
+
 </html>
-
-
