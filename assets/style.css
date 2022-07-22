@@ -10,15 +10,30 @@
 
 body {
   background-color: #39191f;
-  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Cormorant SC", serif;
+}
+
+* {
+    font-family: "Cormorant SC", serif;
 }
 
 h1 {
   color: var(--seashell);
+  font-family: "Cormorant SC", serif;
 }
 
 h2 {
     color: var(--seashell);
+}
+
+h3 {
+    font-family: "Cormorant SC", serif;
+    color: var(--wine);
+}
+
+h4 {
+    color: var(--taupe);
+    font-family: "Cormorant SC", serif;
 }
 
 #dice-roll {
@@ -32,6 +47,14 @@ i {
 i:hover {
     color: var(--blizz);
     transition: all .3s ease-in-out;
+    transform: translateY(-3px);
+    /* x y */
+    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+
+i:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
 
 .jumbotron {
